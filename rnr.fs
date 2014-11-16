@@ -16,11 +16,11 @@ type EitherStat =
   |OrigStat of Stat
   |NewStat of string  
 
-type stats = {orig: Map<OrigStat, int>; extra: Map<NewStat, int>}
+type stats = {orig: Map<Stat, int>; extra: Map<string, int>}
 
 type rank = {str: int; dex: int; con: int; int: int; wis: int; char: int; hpPerLev: int;} 
 
-type race = {levBonus: int; bnsFreq: int; bnsStat: Stat; levHP: int;}
+type race = {levBonus: int; bnsFreq: int; bnsStat: Stat;}
 
 type creature = {stats: stats; rank: rank; race: race}
 
@@ -30,8 +30,8 @@ let races = [("continental", {levBonus=1; bnsFreq=2; bnsStat=Char});
              ("jew", {levBonus=1; bnsFreq=2; bnsStat=Int});
              ("asian", {levBonus=1; bnsFreq=2; bnsStat=Dex});
              ("indian", {levBonus=1; bnsFreq=2; bnsStat=Wis});
-             ("black", {levBonus=1; bnsFreq=2; bnsStat=Crime});
-             ("slav", {levBonus=1; bnsFreq=2; bnsStat=MaxHP})] |>Map.ofList;;
+             ("black", {levBonus=1; bnsFreq=1; bnsStat=Crime});
+             ("slav", {levBonus=2; bnsFreq=1; bnsStat=MaxHP})] |>Map.ofList;;
 
 let ranks = [("prole", {str=12; dex=14; con=13; int=9; wis=5; char=7; hpPerLev=12});
              ("lowerClass", {str=14; dex=12; con=11; int=6; wis=9; char=8; hpPerLev=10});
