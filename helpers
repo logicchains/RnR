@@ -1,0 +1,30 @@
+export PATH=/usr/lib/mono/4.0/:$PATH
+
+open FSharp.Compiler.CodeDom
+open System.CodeDom.Compiler
+
+let compile snippet =
+    use provider = new FSharpCodeProvider()
+    let options = CompilerParameters(GenerateInMemory=true)
+    provider.CompileAssemblyFromSource(options, [|snippet|])
+
+let snippet = """
+module Snippet
+let x y = y + 1
+"""
+let results = compile snippet
+
+let synthMethod  = results.CompiledAssembly.GetType("Snippet").GetMethod("x");;
+
+synthMethod.Invoke(null, [|3|]);;
+
+open System.Reflection;;
+open Microsoft.FSharp.Reflection;;
+
+FSharpValue.GetUnionFields(tmp,tmp.GetType());;
+(FSharpValue.GetUnionFields(tmp,tmp.GetType()) |> fst).Name;;
+
+FSharpType.GetRecordFields(ar.GetType());;
+FSharpType.GetRecordFields(ar.GetType()).[0].SetValue(ar, 69);;
+
+FSharpType.GetUnionCases(Str.GetType());;
